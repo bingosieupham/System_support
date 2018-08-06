@@ -1,0 +1,84 @@
+Bảng DM_donvi : khai báo danh mục đơn vị 
+	- ID_dv	: id đơn vị	(tự động tăng)
+	- Ma_dv	: Mã đơn vị trên hệ thống 
+	- Ten_dv : Tên đơn vị
+	- Dienthoai_dv : điện thoại đơn vị
+	- Email : mail đơn vị
+Bảng User_login : khai báo user đăng nhập hệ thống
+	- ID_nv : id nhân viên (tự động tăng)
+	- ID_dv : id đơn vị
+	- Username : tên đăng nhập (địa chỉ email)
+	- Pass : mật khẩu đăng nhập
+	- Full_name : tên đầy đủ
+	- Phone : số điện thoại.
+	- Role : quyền đơn vị 
+	- Status : trạng thái ( 1 : đang sử dụng, 0: ngừng sử dụng)
+		Role chia làm 4 quyền :
+			+ 1. Quyền Admin : phân quyền user, tạo user, xóa sửa thông tin user
+			+ 2. Quyền nhóm hỗ trợ : tiếp nhận thông tin lỗi, xử lý thông tin , kết thúc lỗi, phản hồi khách hàng.
+			+ 3. Quyền nhóm tư vấn : tiếp nhận lỗi của nhóm hỗ trợ,xử lý thông tin , kết thúc phản hồi cho nhóm hỗ trợ
+			+ 4. Quyền nhóm kỹ thuật : tiếp nhận lỗi của nhóm hỗ trợ , xử lý thông tin , kết thúc lỗi phản hồi nhóm hỗ trợ.
+Bảng DM_project : thông tin các dự án cần theo dõi
+	- ID_Project : Id dự án (Tự động tăng)
+	- Code_project : Mã dự án theo chương trình 
+	- Name_project : Tên dự án
+	- Status_project : Trạng thái dự án ( 1 : đang sử dụng, 0: ngừng sử dụng)
+Bảng DM_module : Lưu thông tin phân hệ ( Accounting,Purchase,Sales	,Manufacturer,Inventory)
+	- ID_module : mã phân hệ
+	- Name_module : tên phân hệ
+Bảng DM_Issue_Class : Các đối tượng thuộc phân hệ ( hiện tại mặc đinh dùng chung)
+	- ID_class : mã đối tượng
+	- Name_class : tên của các đối tượng
+	- ID_Issue : sử dụng với Issue ( null :mặc đinh dùng chung)
+Bảng DM_project_Status : trạng thái xử lý thông tin ( Open,In Progress,Waiting For Customer Information/Feedback,Assigned To Consultant,Assigned To Technical,Fix/Deployed,Closed,Reopen)
+	- ID_st : id tình trạng xử lý
+	- Name_status : tên tình trạng xử lý
+Bảng DM_Level : cấp độ lỗi 
+	- ID_level : ID cấp độ lỗi
+	- Name_level : Tên cấp độ lỗi
+	- Time_process : Thời gian xử lý
+Bảng Issues : Lưu thông tin báo lỗi 
+	- ID : id thông báo lỗi
+	- Title_issue : Tiêu đề báo lỗi
+	- Content_issue : Nội dung báo lỗi
+	- Note : Ghi chú
+	- ID_Project : Id dự án 
+	- ID_module : mã phân hệ
+	- ID_class : mã đối tượng
+	- ID_st : id tình trạng xử lý
+	- ID_level : ID cấp độ lỗi
+	- ID_dv	: id đơn vị	
+	- Created_date : ngày tạo
+	- Deadline_date : hạn hoàn thành dựa trên cấp độ
+	- Resolution_date : Thời gian thực tế hoàn thành
+	- Executors : Người xử lý
+	- User_create : Người tạo
+	- TenFile : Đường dẫn file đính kèm.
+Bảng ND_detail_Issues : chi tiết thông tin xử lý lỗi
+	- ID_detail : Id chi tiết mã thông báo
+	- ID : Mã thông báo
+	- User_reciever : Người tiếp nhận lỗi
+	- Info_process : Thông tin cần xử lý từ đội tiếp nhận
+	- Reply_process : Thông tin phản hồi 
+	- Status : tình trạng ( 0: chưa hoàn thành, 1 : hoàn thành )
+	
+	
+Luồng nghiệp vụ :
+ Bước 1 : tiếp nhận lỗi của khách hàng ( trạng thái : open
+ Bước 2 : Nhóm hỗ trợ tiếp nhận lỗi ( trạng thái process , exceutors : tên người nhóm hỗ trợ)
+	+ Nếu lỗi yêu cầu nhóm nghiệp vụ : ( trạng thái :Assigned To Consultant , exceutors : tên người nhóm nghiệp vụ)
+		Bước 3 : Nhóm nghiệp vụ xử lý xong , phản hồi thông tin cho nhóm hỗ trợ ( trạng thái : Fix/Deployed ,reply_process : cập nhập thông tin hỗ trợ )
+			Bước 4 : Nhóm hỗ trợ tiếp nhận : kết thúc lỗi ( trạng thái : closed)
+	+ Nếu lỗi yêu cầu nhóm kỹ thuật ( ( trạng thái :Assigned To Technical , exceutors : tên người nhóm kỹ thuật)
+		Bước 3 : Nhóm nghiệp vụ xử lý xong , phản hồi thông tin cho nhóm hỗ trợ ( trạng thái : Fix/Deployed ,reply_process : cập nhập thông tin hỗ trợ )
+			Bước 4 : Nhóm hỗ trợ tiếp nhận : kết thúc lỗi ( trạng thái : closed)
+	+ Nếu lỗi phối hợp 2 nhóm : sẽ tạo lần lượt trạng thái cho nhóm. Đến khi nào nhóm hỗ trợ cập nhật trạng thái close mới kêt thúc quá trình xử lý.
+	( Đang chưa Waiting For Customer Information/Feedback dùng khi nào, còn trạng thái reopen nên bỏ vì có lỗi mới thì khai mới)
+	
+Form chính hệ thống :
+	- Đăng nhập
+	- Tạo yêu cầu báo lỗi, kết quả phản hồi : Người dùng là khách hàng
+	- Tiếp nhận,xử lý lỗi đội hỗ trợ 
+	- Tiếp nhận lỗi,xử lý nghiệp vụ
+	- Tiếp nhận lỗi,xử lý kỹ thuật
+		
