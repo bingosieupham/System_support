@@ -52,7 +52,7 @@ namespace System_support.Suporter
                     ASPxComboBox1.Value = dt.Rows[0]["ID_Project"].ToString();
                     ASPxComboBox2.Value = dt.Rows[0]["id_module"].ToString();
                     ASPxComboBox4.Value = dt.Rows[0]["id_level"].ToString();
-                   // ASPxComboBox5.Value = dt.Rows[0]["ID_st"].ToString();
+                    ASPxComboBox5.Value = dt.Rows[0]["ID_st"].ToString();
                     ASPxComboBox6.Value = dt.Rows[0]["id_class"].ToString();
 
                     if (check != 0)
@@ -173,7 +173,7 @@ namespace System_support.Suporter
                     ASPxLabel2.Text = dt.Rows[0]["Content_issue"].ToString();
                     ASPxLabel3.Text = dt1.Rows[0]["Info_process"].ToString();
                     ASPxMemo6.Text = dt1.Rows[0]["Reply_process"].ToString();
-
+                    ASPxComboBox7.Value = dt1.Rows[0]["ID_st"].ToString();
                     break;
                 case "SAVE_EDIT":
                     try

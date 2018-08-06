@@ -898,7 +898,7 @@
                                                    <dx:ASPxComboBox ID="ASPxComboBox5" runat="server" Width="100%" ValueType="System.String" DataSourceID="SqlDataSource5" TextField="Name_status" ValueField="ID_st">
                                                        <ClientSideEvents SelectedIndexChanged="change" />
                                                    </dx:ASPxComboBox>
-                                                     <asp:SqlDataSource ID="SqlDataSource5" runat="server" ConnectionString="<%$ ConnectionStrings:Hotro_DVConnectionString %>" SelectCommand="SELECT * FROM [DM_Issues_Status] where id_st <>1"></asp:SqlDataSource>
+                                                     <asp:SqlDataSource ID="SqlDataSource5" runat="server" ConnectionString="<%$ ConnectionStrings:Hotro_DVConnectionString %>" SelectCommand="SELECT * FROM [DM_Issues_Status]"></asp:SqlDataSource>
     
                                                     </div>
                                             </div>              
@@ -943,7 +943,7 @@
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                         <h4 class="modal-title primary font-110"><strong>
-                           <label>X&#7917; lý thông tin</label> </strong></h4>
+                           <label>Cập nhật chi tiết thông tin</label> </strong></h4>
                     </div>
                       <div class="modal-body">
                       
