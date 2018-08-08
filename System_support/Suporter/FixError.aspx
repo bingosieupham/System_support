@@ -147,17 +147,26 @@
           
         }
 
-           function change1(s, e) {
-            //alert(element);
-            if (s.GetSelectedItem().value == 4)  {
+        function change1(s, e) {
+            var x1 = s.GetSelectedItem().value;
+            alert(x1);
+            if (s.GetSelectedItem().value == 4) {
                 $("#check2").show();
+                $("#check3").show();
                 //alert(document.getElementById($('#check1')));
             }
             else if (s.GetSelectedItem().value == 8) {
                 $("#check2").show();
+                $("#check3").show();
+            }
+            else if(s.GetSelectedItem().value == <%#  Eval("ID_st") %>)
+                {
+                $("#check2").hide();
+                $("#check3").hide();
             }
             else {
                 $("#check2").hide();
+                $("#check3").show();
             }
         }
     </script>
@@ -1005,7 +1014,7 @@
                                             </div>
                                                </div>
 
-                                           <div class="row" style="margin-bottom:15px;">
+                                           <div class="row" style="margin-bottom:15px;display: none;"  id="check3" >
                                                    <div class="col-md-3"  >
                                                         <asp:Label ID="Label13" runat="server" Text="Ghi nhận thông tin tình trạng mới"></asp:Label>
                                                    </div>
