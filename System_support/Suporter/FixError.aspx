@@ -5,7 +5,6 @@
         var stateKhachHang = {};
         var stateKhachHang1 = {};
         var stateKhachHang3 = {};
-
         
         function KH_Sua(element, key) {
             var maQuanLy = GridView1Client.GetRowKey(key);
@@ -56,7 +55,7 @@
                 function () {
                     stateKhachHang3 = { state: "NEW" };
                     $('#CBCNV_3').modal('show');
-                });
+              });
         });
 
 
@@ -147,9 +146,10 @@
           
         }
 
-        function change1(s, e) {
-            var x1 = s.GetSelectedItem().value;
-            alert(x1);
+        function change1(s, e)
+        {
+            var x1 = $("#HiddenField22").val();
+            
             if (s.GetSelectedItem().value == 4) {
                 $("#check2").show();
                 $("#check3").show();
@@ -159,8 +159,12 @@
                 $("#check2").show();
                 $("#check3").show();
             }
-            else if(s.GetSelectedItem().value == <%#  Eval("ID_st") %>)
-                {
+            else if (s.GetSelectedItem().value == 10)
+            {
+                 $("#check2").show();
+                $("#check3").show();
+            }
+            else if (s.GetSelectedItem().value == x1) {
                 $("#check2").hide();
                 $("#check3").hide();
             }
@@ -169,6 +173,7 @@
                 $("#check3").show();
             }
         }
+        
     </script>
     <dx:ASPxFormLayout ID="ASPxFormLayout1" runat="server" EnableTheming="True" Theme="Office2010Blue">
         <Items>
@@ -987,6 +992,7 @@
                                                    </div>
                                                 <div class="col-md-9" >
                                                     <dx:ASPxLabel ID="ASPxLabel3" runat="server" Text="" ForeColor="Red" width="100%" Wrap="True"></dx:ASPxLabel>
+                                                    <asp:HiddenField ClientIDMode="static" ID="HiddenField22" runat="server" ></asp:HiddenField>
 
                                                     </div>
                                             </div>

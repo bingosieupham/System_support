@@ -49,6 +49,15 @@ namespace System_support.EndUser {
         protected global::DevExpress.Web.ASPxUploadControl ASPxUploadControl1;
         
         /// <summary>
+        /// Label19 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label19;
+        
+        /// <summary>
         /// Button1 control.
         /// </summary>
         /// <remarks>

@@ -64,7 +64,7 @@
     </script>
     <dx:ASPxFormLayout ID="ASPxFormLayout1" runat="server" Width="100%" Theme="Office2010Blue">
         <Items>
-            <dx:TabbedLayoutGroup ActiveTabIndex="2">
+            <dx:TabbedLayoutGroup ActiveTabIndex="1" Width="100%">
                 <Items>
                     <dx:LayoutGroup Caption="Cập nhật thông tin lỗi" ColCount="2">
                         <Items>
@@ -84,14 +84,22 @@
                                     </dx:LayoutItemNestedControlContainer>
                                 </LayoutItemNestedControlCollection>
                             </dx:LayoutItem>
-                            <dx:LayoutItem Caption="File đính kèm" ColSpan="2">
+                            <dx:LayoutItem Caption="File đính kèm">
                                 <LayoutItemNestedControlCollection>
                                     <dx:LayoutItemNestedControlContainer runat="server">
-                                        <dx:ASPxUploadControl ID="ASPxUploadControl1" runat="server" ClientInstanceName="uploaderFilesDinhKem" Height="20px" OnFileUploadComplete="ASPxUploadControl1_FileUploadComplete" ShowUploadButton="True" Width="40%">
+                                        <dx:ASPxUploadControl ID="ASPxUploadControl1" runat="server" ClientInstanceName="uploaderFilesDinhKem" Height="20px" OnFileUploadComplete="ASPxUploadControl1_FileUploadComplete" ShowUploadButton="True" Width="100%">
                                             <ClientSideEvents FileUploadComplete="onFileUploadComplete" />
                                             <UploadButton Text="Tải File">
                                             </UploadButton>
                                         </dx:ASPxUploadControl>
+                                    </dx:LayoutItemNestedControlContainer>
+                                </LayoutItemNestedControlCollection>
+                            </dx:LayoutItem>
+                            <dx:LayoutItem ShowCaption="False">
+                                <LayoutItemNestedControlCollection>
+                                    <dx:LayoutItemNestedControlContainer runat="server">
+                                        <asp:Label ID="Label19" runat="server" Font-Italic="True" Font-Names="arial" Font-Size="10pt" Font-Strikeout="False" ForeColor="#FF3300" Text="Nếu có nhiều tệp đính kèm, vui lòng tập hợp vào file .rar và upload"></asp:Label>
+                                        <br />
                                     </dx:LayoutItemNestedControlContainer>
                                 </LayoutItemNestedControlCollection>
                             </dx:LayoutItem>
@@ -112,7 +120,7 @@
                             <dx:LayoutItem ColSpan="2" ShowCaption="False">
                                 <LayoutItemNestedControlCollection>
                                     <dx:LayoutItemNestedControlContainer runat="server">
-                                        <dx:ASPxGridView ID="ASPxGridView1" runat="server" AutoGenerateColumns="False" ClientInstanceName="GridView1Client" DataSourceID="SqlDataSource1" KeyFieldName="ID" Theme="Office2010Blue" Width="100%">
+                                        <dx:ASPxGridView ID="ASPxGridView1" runat="server" AutoGenerateColumns="False" ClientInstanceName="GridView1Client" DataSourceID="SqlDataSource1" KeyFieldName="ID" Theme="Office2010Blue" Width="100%" Visible="False">
                                             <SettingsPager Mode="ShowAllRecords">
                                             </SettingsPager>
                                             <Settings ShowFilterRow="True" ShowFooter="True" ShowGroupPanel="True" />
@@ -183,7 +191,7 @@
                             </dx:LayoutItem>
                         </Items>
                     </dx:LayoutGroup>
-                    <dx:LayoutGroup Caption="Waiting For Customer Information">
+                    <dx:LayoutGroup Caption="Tình trạng xử lý">
                         <Items>
                             <dx:LayoutItem ShowCaption="False">
                                 <LayoutItemNestedControlCollection>
@@ -267,7 +275,7 @@
                                                 <dx:GridViewDataTextColumn FieldName="ID" ReadOnly="True" ShowInCustomizationForm="True" VisibleIndex="0">
                                                     <EditFormSettings Visible="False" />
                                                 </dx:GridViewDataTextColumn>
-                                                <dx:GridViewDataTextColumn FieldName="Content_issue" ShowInCustomizationForm="True" VisibleIndex="2" Caption="Nội dung">
+                                                <dx:GridViewDataTextColumn FieldName="Content_issue" ShowInCustomizationForm="True" VisibleIndex="2" Caption="Nội dung" Visible="False">
                                                 </dx:GridViewDataTextColumn>
                                                 <dx:GridViewDataTextColumn FieldName="Name_Class" ShowInCustomizationForm="True" VisibleIndex="8" Caption="Phân loại">
                                                 </dx:GridViewDataTextColumn>
@@ -285,7 +293,7 @@
                                                 </dx:GridViewDataTextColumn>
                                                 <dx:GridViewDataTextColumn Caption="Đơn vị" FieldName="Ten_dv" Visible="false" ShowInCustomizationForm="True" VisibleIndex="15">
                                                 </dx:GridViewDataTextColumn>
-                                                <dx:GridViewDataTextColumn Caption="Điện thoại" FieldName="Phone" ShowInCustomizationForm="True" VisibleIndex="16">
+                                                <dx:GridViewDataTextColumn Caption="Điện thoại" FieldName="Phone" ShowInCustomizationForm="True" VisibleIndex="16" Visible="False">
                                                 </dx:GridViewDataTextColumn>
                                                 <dx:GridViewDataTextColumn Caption="File" FieldName="Filekem1" ShowInCustomizationForm="True" VisibleIndex="4" Width="20px">
                                                     <Settings AutoFilterCondition="Contains" FilterMode="DisplayText" />
@@ -320,7 +328,7 @@
                                                 </Cell>
                                             </Styles>
                                         </dx:ASPxGridView>
-                                        <asp:SqlDataSource ID="SqlDataSource3" runat="server" ConnectionString="<%$ ConnectionStrings:Hotro_DVConnectionString %>" SelectCommand="SELECT DM_project.Name_project, DM_Issues_Status.Name_status, DM_Level.Name_level, DM_module.Name_module, User_login.User_name, ND_Issues.Title_issue, ND_Issues.ID, ND_Issues.Content_issue, DM_module_Class.Name_Class, ND_Issues.Created_date, ND_Issues.Resolution_date, ND_Issues.TenFile, DM_donvi.Ten_dv, User_login.Phone, User_login_1.User_name AS Executor, ND_Issues.ID_level FROM ND_Issues INNER JOIN DM_donvi ON ND_Issues.ID_dv = DM_donvi.ID_dv LEFT OUTER JOIN User_login AS User_login_1 ON ND_Issues.Executors = User_login_1.ID_nv LEFT OUTER JOIN DM_project ON ND_Issues.ID_Project = DM_project.ID_Project LEFT OUTER JOIN DM_Issues_Status ON ND_Issues.ID_st = DM_Issues_Status.ID_st LEFT OUTER JOIN DM_Level ON ND_Issues.ID_level = DM_Level.ID_level LEFT OUTER JOIN DM_module ON ND_Issues.ID_module = DM_module.ID_module LEFT OUTER JOIN User_login ON ND_Issues.User_create = User_login.ID_nv LEFT OUTER JOIN DM_module_Class ON ND_Issues.ID_class = DM_module_Class.ID_Class WHERE (ND_Issues.ID_st = 3) AND (ND_Issues.ID_dv = @id_dv)">
+                                        <asp:SqlDataSource ID="SqlDataSource3" runat="server" ConnectionString="<%$ ConnectionStrings:Hotro_DVConnectionString %>" SelectCommand="SELECT DM_project.Name_project, DM_Issues_Status.Name_status, DM_Level.Name_level, DM_module.Name_module, User_login.User_name, ND_Issues.Title_issue, ND_Issues.ID, ND_Issues.Content_issue, DM_module_Class.Name_Class, ND_Issues.Created_date, ND_Issues.Resolution_date, ND_Issues.TenFile, DM_donvi.Ten_dv, User_login.Phone, User_login_1.User_name AS Executor, ND_Issues.ID_level FROM ND_Issues INNER JOIN DM_donvi ON ND_Issues.ID_dv = DM_donvi.ID_dv LEFT OUTER JOIN User_login AS User_login_1 ON ND_Issues.Executors = User_login_1.ID_nv LEFT OUTER JOIN DM_project ON ND_Issues.ID_Project = DM_project.ID_Project LEFT OUTER JOIN DM_Issues_Status ON ND_Issues.ID_st = DM_Issues_Status.ID_st LEFT OUTER JOIN DM_Level ON ND_Issues.ID_level = DM_Level.ID_level LEFT OUTER JOIN DM_module ON ND_Issues.ID_module = DM_module.ID_module LEFT OUTER JOIN User_login ON ND_Issues.User_create = User_login.ID_nv LEFT OUTER JOIN DM_module_Class ON ND_Issues.ID_class = DM_module_Class.ID_Class WHERE (ND_Issues.ID_st IN (1,2,3,5,6,9) AND (ND_Issues.ID_dv = @id_dv))">
                                             <SelectParameters>
                                                 <asp:SessionParameter Name="id_dv" SessionField="donvi" />
                                             </SelectParameters>
@@ -330,7 +338,7 @@
                             </dx:LayoutItem>
                         </Items>
                     </dx:LayoutGroup>
-                    <dx:LayoutGroup Caption="Fix/Dev">
+                    <dx:LayoutGroup Caption="Fix/Dev" Visible="False">
                         <Items>
                             <dx:LayoutItem ShowCaption="False">
                                 <LayoutItemNestedControlCollection>
@@ -476,7 +484,7 @@
                             </dx:LayoutItem>
                         </Items>
                     </dx:LayoutGroup>
-                    <dx:LayoutGroup Caption="Closed">
+                    <dx:LayoutGroup Caption="Đã xử lý">
                         <Items>
                             <dx:LayoutItem ShowCaption="False">
                                 <LayoutItemNestedControlCollection>
@@ -599,7 +607,7 @@
                                                 </Cell>
                                             </Styles>
                                         </dx:ASPxGridView>
-                                        <asp:SqlDataSource ID="SqlDataSource5" runat="server" ConnectionString="<%$ ConnectionStrings:Hotro_DVConnectionString %>" SelectCommand="SELECT DM_project.Name_project, DM_Issues_Status.Name_status, DM_Level.Name_level, DM_module.Name_module, User_login.User_name, ND_Issues.Title_issue, ND_Issues.ID, ND_Issues.Content_issue, DM_module_Class.Name_Class, ND_Issues.Created_date, ND_Issues.Resolution_date, ND_Issues.TenFile, DM_donvi.Ten_dv, User_login.Phone, User_login_1.User_name AS Executor FROM ND_Issues INNER JOIN DM_donvi ON ND_Issues.ID_dv = DM_donvi.ID_dv LEFT OUTER JOIN User_login AS User_login_1 ON ND_Issues.Executors = User_login_1.ID_nv LEFT OUTER JOIN DM_project ON ND_Issues.ID_Project = DM_project.ID_Project LEFT OUTER JOIN DM_Issues_Status ON ND_Issues.ID_st = DM_Issues_Status.ID_st LEFT OUTER JOIN DM_Level ON ND_Issues.ID_level = DM_Level.ID_level LEFT OUTER JOIN DM_module ON ND_Issues.ID_module = DM_module.ID_module LEFT OUTER JOIN User_login ON ND_Issues.User_create = User_login.ID_nv LEFT OUTER JOIN DM_module_Class ON ND_Issues.ID_class = DM_module_Class.ID_Class WHERE (ND_Issues.ID_st in (4,8)) AND (ND_Issues.ID_dv = @id_dv)  ">
+                                        <asp:SqlDataSource ID="SqlDataSource5" runat="server" ConnectionString="<%$ ConnectionStrings:Hotro_DVConnectionString %>" SelectCommand="SELECT DM_project.Name_project, DM_Issues_Status.Name_status, DM_Level.Name_level, DM_module.Name_module, User_login.User_name, ND_Issues.Title_issue, ND_Issues.ID, ND_Issues.Content_issue, DM_module_Class.Name_Class, ND_Issues.Created_date, ND_Issues.Resolution_date, ND_Issues.TenFile, DM_donvi.Ten_dv, User_login.Phone, User_login_1.User_name AS Executor FROM ND_Issues INNER JOIN DM_donvi ON ND_Issues.ID_dv = DM_donvi.ID_dv LEFT OUTER JOIN User_login AS User_login_1 ON ND_Issues.Executors = User_login_1.ID_nv LEFT OUTER JOIN DM_project ON ND_Issues.ID_Project = DM_project.ID_Project LEFT OUTER JOIN DM_Issues_Status ON ND_Issues.ID_st = DM_Issues_Status.ID_st LEFT OUTER JOIN DM_Level ON ND_Issues.ID_level = DM_Level.ID_level LEFT OUTER JOIN DM_module ON ND_Issues.ID_module = DM_module.ID_module LEFT OUTER JOIN User_login ON ND_Issues.User_create = User_login.ID_nv LEFT OUTER JOIN DM_module_Class ON ND_Issues.ID_class = DM_module_Class.ID_Class WHERE (ND_Issues.ID_st in (7,4,8)) AND (ND_Issues.ID_dv = @id_dv)  ">
                                             <SelectParameters>
                                                 <asp:SessionParameter Name="id_dv" SessionField="donvi" />
                                             </SelectParameters>

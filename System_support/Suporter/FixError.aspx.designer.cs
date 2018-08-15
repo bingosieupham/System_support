@@ -427,6 +427,15 @@ namespace System_support.Suporter {
         protected global::DevExpress.Web.ASPxLabel ASPxLabel3;
         
         /// <summary>
+        /// HiddenField22 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField HiddenField22;
+        
+        /// <summary>
         /// Label18 control.
         /// </summary>
         /// <remarks>

@@ -2754,6 +2754,7 @@
     <Content Include="Doimk.aspx" />
     <Content Include="EndUser\Hotro.aspx" />
     <Content Include="Login.aspx" />
+    <Content Include="Suporter\Baocao.aspx" />
     <Content Include="Suporter\FixError.aspx" />
     <Content Include="Suporter\Hotro1.aspx" />
     <Content Include="Web.config">
@@ -2836,6 +2837,13 @@
       <DependentUpon>Site1.Master</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Suporter\Baocao.aspx.cs">
+      <DependentUpon>Baocao.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Suporter\Baocao.aspx.designer.cs">
+      <DependentUpon>Baocao.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Suporter\FixError.aspx.cs">
       <DependentUpon>FixError.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

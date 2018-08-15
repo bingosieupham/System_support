@@ -118,6 +118,11 @@
 								<span class="title">Cập nhật thông tin lỗi</span><span class="selected"></span>
 							</a>
 						</li>
+                         <li >
+							<a href="../Suporter/Baocao.aspx"><i class="fa-inbox"></i>
+								<span class="title">Hệ thống báo cáo</span><span class="selected"></span>
+							</a>
+						</li>
 						<li >
 							<a href="../HoTroITDV.aspx"><i class="clip-file-2"></i>
 								<span class="title">File thông tin hỗ trợ </span><span class="selected"></span>

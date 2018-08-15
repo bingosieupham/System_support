@@ -174,13 +174,24 @@ namespace System_support.Suporter
                     ASPxLabel3.Text = dt1.Rows[0]["Info_process"].ToString();
                     ASPxMemo6.Text = dt1.Rows[0]["Reply_process"].ToString();
                     ASPxComboBox7.Value = dt1.Rows[0]["ID_st"].ToString();
+                    HiddenField22.Value = dt1.Rows[0]["ID_st"].ToString();
                     break;
                 case "SAVE_EDIT":
                     try
                     {
                         int id_stt1 = Int32.Parse(ASPxComboBox7.SelectedItem.Value.ToString());
                         int id_nv = Int32.Parse(Session.Contents["id_nv"].ToString());
-                        sp.updateProcess_detailIsseus(id, id_nv, ASPxMemo6.Text, ID_deatil,ASPxMemo5.Text,ASPxMemo4.Text,id_stt1);
+                        int id_stt = Int32.Parse(HiddenField22.Value.ToString());
+                        if (id_stt1 == id_stt)
+                        {
+                            sp.updateProcess_detailIsseus(id, id_nv, ASPxMemo6.Text, ID_deatil, ASPxMemo5.Text, ASPxMemo4.Text, 0);
+                          
+                        }
+                        else
+                        {
+                            sp.updateProcess_detailIsseus(id, id_nv, ASPxMemo6.Text, ID_deatil, ASPxMemo5.Text, ASPxMemo4.Text, id_stt1);
+                           
+                        }
                         ASPxCallbackPanel2.JSProperties["cpKhang"] = "1";
                     }
                     catch (Exception ex1)
