@@ -24,11 +24,11 @@ namespace System_support.Admin
             string user = Session.Contents["id_nv"].ToString();
             try
             {
-                ad.insertdonvi(ASPxTextBox3.Text, ASPxTextBox1.Text, ASPxTextBox2.Text, ASPxTextBox4.Text,user);
+                ad.insertdonvi(ASPxTextBox3.Text, ASPxTextBox1.Text, ASPxTextBox3.Text, ASPxTextBox4.Text,user,ASPxMemo1.Text);
                 ASPxGridView1.DataBind();
                 Label2.Text = "Cập nhật thành công ";
                 ASPxTextBox1.Text = "";
-                ASPxTextBox2.Text = "";
+                ASPxTextBox3.Text = "";
                 ASPxTextBox3.Text = "";
                 ASPxTextBox4.Text = "";
             }

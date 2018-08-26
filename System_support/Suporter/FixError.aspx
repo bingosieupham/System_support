@@ -189,36 +189,75 @@
 
                                             <Templates>
                                                 <DetailRow>
+                                                    	<div class="panel-body" style="padding-top: 1px">
+									<form role="form" class="form-horizontal" >
+                                        <div class="row" >
+										<div class="form-group">
+											<label class="col-sm-1 control-label" for="form-field-1">
+												File kèm :
+											</label>
+											<div class="col-sm-10">
+												<div class="file" style="color: blue"><%# editBeforeDisplayTenFile(Eval("TenFile")) %></div>
+											</div>
+										</div>
+                                            </div>
+                                        <div class="row">
+											<label class="col-sm-1 control-label" for="form-field-1" >
+												Đơn vị :
+											</label>
+											<div class="col-sm-4">
+												<dx:ASPxLabel runat="server" Text='<%# Eval("Ten_dv") %>' />
+											</div>
+											<label class="col-sm-1 control-label" for="form-field-2">
+												Phân hệ :
+											</label>
+											<div class="col-sm-2">
+												<dx:ASPxLabel runat="server" Text='<%# Eval("Name_module") %>' />
+											</div>			
+											<label class="col-sm-1 control-label" for="form-field-3">
+												Phân loại :
+											</label>
+											<div class="col-sm-2">
+												<dx:ASPxLabel runat="server" Text='<%# Eval("Name_Class") %>' />
+											</div>
+                                            </div>
+                                        </form>
+                                        </div>
                                                     <dx:ASPxGridView ID="ASPxGridView2" runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource11" KeyFieldName="ID_detail" OnBeforePerformDataSelect="ASPxGridView2_BeforePerformDataSelect" Width="100%" ClientInstanceName="GridView2Client" EnablePagingGestures="False" OnCustomCallback="ASPxGridView2_CustomCallback" Theme="Office2010Blue">
                                                         <SettingsPager Visible="False">
                                                         </SettingsPager>
                                                         <SettingsDataSecurity AllowDelete="False" AllowEdit="False" AllowInsert="False" />
                                                         <SettingsText EmptyDataRow="Chưa có dữ liệu hiển thị !" />
                                                         <Columns>
-                                                            <dx:GridViewDataTextColumn FieldName="ID_detail" ReadOnly="True" VisibleIndex="0" Caption="ID chi tiết">
+                                                            <dx:GridViewDataTextColumn FieldName="ID_detail" ReadOnly="True" VisibleIndex="0" Caption="ID chi tiết" Visible="False">
                                                                 <EditFormSettings Visible="False" />
                                                             </dx:GridViewDataTextColumn>
                                                             <dx:GridViewDataTextColumn FieldName="ID" VisibleIndex="1" Visible="False">
                                                             </dx:GridViewDataTextColumn>
                                                             <dx:GridViewDataTextColumn FieldName="Info_process" VisibleIndex="3" Caption="Ghi nhận th&#244;ng tin">
                                                             </dx:GridViewDataTextColumn>
-                                                            <dx:GridViewDataTextColumn FieldName="Reply_process" VisibleIndex="4" Caption="Phản hồi th&#244;ng tin">
+                                                            <dx:GridViewDataTextColumn FieldName="Reply_process" VisibleIndex="5" Caption="Phản hồi th&#244;ng tin">
                                                             </dx:GridViewDataTextColumn>
-                                                            <dx:GridViewDataDateColumn FieldName="Create_date" VisibleIndex="6" Caption="Thời gian tạo">
+                                                            <dx:GridViewDataDateColumn FieldName="Create_date" VisibleIndex="8" Caption="Thời gian tạo">
                                                                 <PropertiesDateEdit DisplayFormatString="dd/MM/yyyy HH:mm:ss">
                                                                 </PropertiesDateEdit>
                                                             </dx:GridViewDataDateColumn>
-                                                            <dx:GridViewDataTextColumn FieldName="User_update" VisibleIndex="7" Caption="Người phản hồi">
+                                                            <dx:GridViewDataTextColumn FieldName="User_update" VisibleIndex="9" Caption="Người phản hồi">
                                                             </dx:GridViewDataTextColumn>
-                                                            <dx:GridViewDataDateColumn FieldName="update_date" VisibleIndex="8" Caption="Thời gian phản hồi">
+                                                            <dx:GridViewDataDateColumn FieldName="update_date" VisibleIndex="10" Caption="Thời gian phản hồi">
                                                                 <PropertiesDateEdit DisplayFormatString="dd/MM/yyyy HH:mm:ss">
                                                                 </PropertiesDateEdit>
                                                             </dx:GridViewDataDateColumn>
                                                             <dx:GridViewDataTextColumn FieldName="Name_status" VisibleIndex="2" Caption="Trạng th&#225;i">
+                                                                 <DataItemTemplate>
+                                                      <div>   <%# GetIssueTypeIconHtml2(Eval("Name_status").ToString()) %> </div>
+                                                     </DataItemTemplate>
+                                                    <CellStyle Wrap="True">
+                                                    </CellStyle>
                                                             </dx:GridViewDataTextColumn>
-                                                            <dx:GridViewDataTextColumn FieldName="User_name" VisibleIndex="5" Caption="Người tạo">
+                                                            <dx:GridViewDataTextColumn FieldName="User_name" VisibleIndex="7" Caption="Người tạo">
                                                             </dx:GridViewDataTextColumn>
-                                                            <dx:GridViewDataTextColumn FieldName="Status1" VisibleIndex="9" Caption="T&#236;nh trạng">
+                                                            <dx:GridViewDataTextColumn FieldName="Status1" VisibleIndex="11" Caption="T&#236;nh trạng">
                                                             </dx:GridViewDataTextColumn>
                                                             <dx:GridViewDataColumn Caption=" " Name="colOpt_1" ShowInCustomizationForm="True" VisibleIndex="16" Width="30px">
                                                                 <DataItemTemplate>
@@ -229,11 +268,15 @@
                                                                     </div>
                                                                 </DataItemTemplate>
                                                             </dx:GridViewDataColumn>
-                                                            <dx:GridViewDataTextColumn FieldName="Status" Visible="False" VisibleIndex="11">
+                                                            <dx:GridViewDataTextColumn FieldName="Status" Visible="False" VisibleIndex="12">
+                                                            </dx:GridViewDataTextColumn>
+                                                            <dx:GridViewDataTextColumn FieldName="File_process" VisibleIndex="6">
+                                                            </dx:GridViewDataTextColumn>
+                                                            <dx:GridViewDataTextColumn FieldName="File_unprocess" VisibleIndex="4">
                                                             </dx:GridViewDataTextColumn>
                                                         </Columns>
                                                     </dx:ASPxGridView>
-                                                    <asp:sqldatasource id="SqlDataSource11" runat="server" connectionstring="<%$ ConnectionStrings:Hotro_DVConnectionString %>" selectcommand="SELECT ND_detail_Issues.ID_detail, ND_detail_Issues.ID, ND_detail_Issues.Info_process, ND_detail_Issues.Reply_process, ND_detail_Issues.Create_date, ND_detail_Issues.update_date, DM_Issues_Status.Name_status, User_login.User_name, CASE ND_detail_Issues.Status WHEN 0 THEN N'Chưa xử lý' ELSE N'Đã xử lý' END AS Status1, ND_detail_Issues.Status, User_login_1.User_name AS User_update FROM ND_detail_Issues LEFT OUTER JOIN DM_Issues_Status ON ND_detail_Issues.ID_st = DM_Issues_Status.ID_st LEFT OUTER JOIN User_login ON ND_detail_Issues.User_reciever = User_login.ID_nv LEFT OUTER JOIN User_login AS User_login_1 ON ND_detail_Issues.User_update = User_login_1.ID_nv WHERE (ND_detail_Issues.ID = @ID) order by ND_detail_Issues.ID_detail ">
+                                                    <asp:sqldatasource id="SqlDataSource11" runat="server" connectionstring="<%$ ConnectionStrings:Hotro_DVConnectionString %>" selectcommand="SELECT ND_detail_Issues.ID_detail, ND_detail_Issues.ID, ND_detail_Issues.Info_process, ND_detail_Issues.Reply_process, ND_detail_Issues.Create_date, ND_detail_Issues.update_date, DM_Issues_Status.Name_status, User_login.User_name, CASE ND_detail_Issues.Status WHEN 0 THEN N'Chưa xử lý' ELSE N'Đã xử lý' END AS Status1, ND_detail_Issues.Status, User_login_1.User_name AS User_update, ND_detail_Issues.File_unprocess, ND_detail_Issues.File_process FROM ND_detail_Issues LEFT OUTER JOIN DM_Issues_Status ON ND_detail_Issues.ID_st = DM_Issues_Status.ID_st LEFT OUTER JOIN User_login ON ND_detail_Issues.User_reciever = User_login.ID_nv LEFT OUTER JOIN User_login AS User_login_1 ON ND_detail_Issues.User_update = User_login_1.ID_nv WHERE (ND_detail_Issues.ID = @ID) ORDER BY ND_detail_Issues.ID_detail">
                                                         <SelectParameters>
                                                             <asp:SessionParameter Name="ID" SessionField="ID_is" Type="Int32"/>
                                                         </SelectParameters>
@@ -244,7 +287,7 @@
 
                                             <SettingsPager Mode="ShowAllRecords"></SettingsPager>
 
-                                            <Settings ShowFilterRow="True" ShowGroupPanel="True" ShowFooter="True" VerticalScrollableHeight="500" VerticalScrollBarMode="Auto" VerticalScrollBarStyle="VirtualSmooth"></Settings>
+                                            <Settings ShowFilterRow="True" ShowGroupPanel="True" ShowFooter="True" VerticalScrollableHeight="530" VerticalScrollBarMode="Auto" VerticalScrollBarStyle="VirtualSmooth"></Settings>
 
                                             <SettingsBehavior AutoExpandAllGroups="True"></SettingsBehavior>
 
@@ -255,12 +298,24 @@
                                             <SettingsText EmptyDataRow="Chưa c&#243; dữ liệu hiển thị !"></SettingsText>
                                             <Columns>
                                                 <dx:GridViewDataTextColumn FieldName="Name_project" ShowInCustomizationForm="True" VisibleIndex="4" Caption="Tên dự án" Visible="False"></dx:GridViewDataTextColumn>
-                                                <dx:GridViewDataTextColumn FieldName="Name_status" ShowInCustomizationForm="True" VisibleIndex="6" Caption="Trạng thái"></dx:GridViewDataTextColumn>
-                                                <dx:GridViewDataTextColumn FieldName="Name_level" ShowInCustomizationForm="True" VisibleIndex="7" Caption="Cấp độ" Width="50px">
+                                                <dx:GridViewDataTextColumn FieldName="Name_status" ShowInCustomizationForm="True" VisibleIndex="6" Caption="Trạng thái" Width="4%">
+                                                     <DataItemTemplate>
+                                                   <center> <div>   <%# GetIssueTypeIconHtml2(Eval("Name_status").ToString()) %> </div> </center>  
+                                                     </DataItemTemplate>
+                                                    <CellStyle Wrap="True" HorizontalAlign="Center">
+                                                    </CellStyle>
+                                                </dx:GridViewDataTextColumn>
+                                                <dx:GridViewDataTextColumn FieldName="Name_level" ShowInCustomizationForm="True" VisibleIndex="7" Caption="Cấp độ" Width="7%">
+                                                       <DataItemTemplate>
+                                                      <div>   <%# GetIssueTypeIconHtml1(Eval("Name_level").ToString()) %> </div>
+                                                     </DataItemTemplate>
+
+                                                     <CellStyle Wrap="True" HorizontalAlign="Center">
+                                                     </CellStyle>
                                                     <CellStyle Wrap="True">
                                                     </CellStyle>
                                                 </dx:GridViewDataTextColumn>
-                                                <dx:GridViewDataTextColumn FieldName="Name_module" ShowInCustomizationForm="True" VisibleIndex="8" Caption="Phân hệ" Width="70px">
+                                                <dx:GridViewDataTextColumn FieldName="Name_module" ShowInCustomizationForm="True" VisibleIndex="8" Caption="Phân hệ" Width="70px" Visible="False">
                                                     <CellStyle Wrap="True">
                                                     </CellStyle>
                                                 </dx:GridViewDataTextColumn>
@@ -269,7 +324,7 @@
                                                     <CellStyle Wrap="True">
                                                     </CellStyle>
                                                 </dx:GridViewDataTextColumn>
-                                                <dx:GridViewDataTextColumn FieldName="Title_issue" ShowInCustomizationForm="True" VisibleIndex="2" Caption="Tiêu đề" Width="400px">
+                                                <dx:GridViewDataTextColumn FieldName="Title_issue" ShowInCustomizationForm="True" VisibleIndex="2" Caption="Tiêu đề" Width="15%">
                                                     <CellStyle Wrap="True">
                                                     </CellStyle>
                                                 </dx:GridViewDataTextColumn>
@@ -278,23 +333,31 @@
                                                     <CellStyle Wrap="True">
                                                     </CellStyle>
                                                 </dx:GridViewDataTextColumn>
-                                                <dx:GridViewDataTextColumn FieldName="Content_issue" ShowInCustomizationForm="True" VisibleIndex="3" Caption="Nội dung" Visible="False"></dx:GridViewDataTextColumn>
-                                                <dx:GridViewDataTextColumn FieldName="Name_Class" ShowInCustomizationForm="True" VisibleIndex="9" Caption="Phân loại" Width="50px"></dx:GridViewDataTextColumn>
-                                                <dx:GridViewDataDateColumn FieldName="Created_date" ShowInCustomizationForm="True" VisibleIndex="1" Caption="Thời gian tạo">
+                                                <dx:GridViewDataTextColumn FieldName="Content_issue" ShowInCustomizationForm="True" VisibleIndex="3" Caption="Nội dung" Width="40%">
+                                                    <CellStyle Wrap="True"></CellStyle>
+                                                </dx:GridViewDataTextColumn>
+                                                <dx:GridViewDataTextColumn FieldName="Name_Class" ShowInCustomizationForm="True" VisibleIndex="9" Caption="Phân loại" Width="4% " Visible="False">
+                                                    <CellStyle Wrap="True"></CellStyle>
+                                                </dx:GridViewDataTextColumn>
+                                                <dx:GridViewDataDateColumn FieldName="Created_date" ShowInCustomizationForm="True" VisibleIndex="1" Caption="Thời gian tạo" Width="7% ">
                                                     <PropertiesDateEdit DisplayFormatString="dd/MM/yyyy HH:mm:ss" EditFormat="DateTime"></PropertiesDateEdit>
+                                                    <CellStyle Wrap="True"></CellStyle>
                                                 </dx:GridViewDataDateColumn>
-                                                <dx:GridViewDataDateColumn FieldName="Resolution_date" ShowInCustomizationForm="True" VisibleIndex="12" Caption="Thời gian kết thúc">
+                                                <dx:GridViewDataDateColumn FieldName="Resolution_date" ShowInCustomizationForm="True" VisibleIndex="12" Caption="Thời gian kết thúc" Visible="False">
                                                     <PropertiesDateEdit DisplayFormatString="dd/MM/yyyy HH:mm:ss" EditFormat="DateTime"></PropertiesDateEdit>
                                                     <HeaderStyle Wrap="True" />
+                                                    <CellStyle Wrap="True"></CellStyle>
                                                 </dx:GridViewDataDateColumn>
                                                 <dx:GridViewDataTextColumn FieldName="Executor" ShowInCustomizationForm="True" VisibleIndex="13" Caption="Người xử lý" Width="50px">
                                                     <CellStyle Wrap="True">
                                                     </CellStyle>
                                                 </dx:GridViewDataTextColumn>
                                                 <dx:GridViewDataTextColumn FieldName="TenFile" ShowInCustomizationForm="True" Visible="False" VisibleIndex="14"></dx:GridViewDataTextColumn>
-                                                <dx:GridViewDataTextColumn FieldName="Ten_dv" ShowInCustomizationForm="True" Caption="Đơn vị" VisibleIndex="11"></dx:GridViewDataTextColumn>
+                                                <dx:GridViewDataTextColumn FieldName="Ten_dv" ShowInCustomizationForm="True" Caption="Đơn vị" VisibleIndex="11" Visible="False">
+                                                    <CellStyle Wrap="True"></CellStyle>
+                                                </dx:GridViewDataTextColumn>
                                                 <dx:GridViewDataTextColumn FieldName="Phone" ShowInCustomizationForm="True" Caption="Điện thoại" VisibleIndex="16" Visible="False"></dx:GridViewDataTextColumn>
-                                                <dx:GridViewDataTextColumn FieldName="Filekem1" ShowInCustomizationForm="True" Caption="File" VisibleIndex="5">
+                                                <dx:GridViewDataTextColumn FieldName="Filekem1" ShowInCustomizationForm="True" Caption="File" VisibleIndex="5" Visible="False">
                                                     <Settings AutoFilterCondition="Contains" FilterMode="DisplayText"></Settings>
 
                                                     <BatchEditModifiedCellStyle Wrap="True"></BatchEditModifiedCellStyle>
@@ -328,16 +391,11 @@
                                             <GroupSummary>
                                                 <dx:ASPxSummaryItem SummaryType="Count" FieldName="TenDT" DisplayFormat="Count  = {0}"></dx:ASPxSummaryItem>
                                             </GroupSummary>
-                                            <FormatConditions>
-                                                <dx:GridViewFormatConditionColorScale ShowInColumn="Name_level" Format="RedYellowGreen" FieldName="ID_level"></dx:GridViewFormatConditionColorScale>
-                                            </FormatConditions>
 
                                             <Styles>
-                                                <Header Wrap="True"></Header>
+                                                <Header Wrap="True" HorizontalAlign="Center"></Header>
 
-                                                <Cell Wrap="True"></Cell>
-                                                <FixedColumn HorizontalAlign="Center">
-                                                </FixedColumn>
+                                                <Cell Wrap="True" Font-Size="7pt" ></Cell>
                                             </Styles>
                                         </dx:ASPxGridView>
 
@@ -386,6 +444,11 @@
                                                                 </PropertiesDateEdit>
                                                             </dx:GridViewDataDateColumn>
                                                             <dx:GridViewDataTextColumn FieldName="Name_status" VisibleIndex="2">
+                                                                 <DataItemTemplate>
+                                                      <div>   <%# GetIssueTypeIconHtml2(Eval("Name_status").ToString()) %> </div>
+                                                     </DataItemTemplate>
+                                                    <CellStyle Wrap="True">
+                                                    </CellStyle>
                                                             </dx:GridViewDataTextColumn>
                                                             <dx:GridViewDataTextColumn FieldName="User_name" VisibleIndex="5">
                                                             </dx:GridViewDataTextColumn>
@@ -422,8 +485,19 @@
                                                 <dx:GridViewDataTextColumn FieldName="Name_project" ShowInCustomizationForm="True" VisibleIndex="3" Caption="Dự &#225;n">
                                                 </dx:GridViewDataTextColumn>
                                                 <dx:GridViewDataTextColumn FieldName="Name_status" ShowInCustomizationForm="True" VisibleIndex="5" Caption="Trạng th&#225;i">
+                                                     <DataItemTemplate>
+                                                      <div>   <%# GetIssueTypeIconHtml2(Eval("Name_status").ToString()) %> </div>
+                                                     </DataItemTemplate>
+                                                    <CellStyle Wrap="True">
+                                                    </CellStyle>
                                                 </dx:GridViewDataTextColumn>
                                                 <dx:GridViewDataTextColumn FieldName="Name_level" ShowInCustomizationForm="True" VisibleIndex="6" Caption="Cấp độ">
+                                                       <DataItemTemplate>
+                                                      <div>   <%# GetIssueTypeIconHtml1(Eval("Name_level").ToString()) %> </div>
+                                                     </DataItemTemplate>
+
+                                                     <CellStyle Wrap="True">
+                                                     </CellStyle>
                                                 </dx:GridViewDataTextColumn>
                                                 <dx:GridViewDataTextColumn FieldName="Name_module" ShowInCustomizationForm="True" VisibleIndex="7" Caption="Ph&#226;n hệ">
                                                 </dx:GridViewDataTextColumn>
@@ -487,9 +561,6 @@
                                             <GroupSummary>
                                                 <dx:ASPxSummaryItem DisplayFormat="Count  = {0}" FieldName="TenDT" SummaryType="Count" />
                                             </GroupSummary>
-                                            <FormatConditions>
-                                                <dx:GridViewFormatConditionColorScale FieldName="ID_level" Format="RedYellowGreen" ShowInColumn="Name_level" />
-                                            </FormatConditions>
                                             <Styles>
                                                 <Header Wrap="True">
                                                 </Header>
@@ -539,6 +610,11 @@
                                                                 </PropertiesDateEdit>
                                                             </dx:GridViewDataDateColumn>
                                                             <dx:GridViewDataTextColumn FieldName="Name_status" VisibleIndex="2">
+                                                                 <DataItemTemplate>
+                                                      <div>   <%# GetIssueTypeIconHtml2(Eval("Name_status").ToString()) %> </div>
+                                                     </DataItemTemplate>
+                                                    <CellStyle Wrap="True">
+                                                    </CellStyle>
                                                             </dx:GridViewDataTextColumn>
                                                             <dx:GridViewDataTextColumn FieldName="User_name" VisibleIndex="5">
                                                             </dx:GridViewDataTextColumn>
@@ -575,8 +651,19 @@
                                                 <dx:GridViewDataTextColumn FieldName="Name_project" ShowInCustomizationForm="True" VisibleIndex="3" Caption="Dự &#225;n">
                                                 </dx:GridViewDataTextColumn>
                                                 <dx:GridViewDataTextColumn FieldName="Name_status" ShowInCustomizationForm="True" VisibleIndex="5" Caption="T&#236;nh trạng">
+                                                     <DataItemTemplate>
+                                                      <div>   <%# GetIssueTypeIconHtml2(Eval("Name_status").ToString()) %> </div>
+                                                     </DataItemTemplate>
+                                                    <CellStyle Wrap="True">
+                                                    </CellStyle>
                                                 </dx:GridViewDataTextColumn>
                                                 <dx:GridViewDataTextColumn FieldName="Name_level" ShowInCustomizationForm="True" VisibleIndex="6" Caption="Cấp độ">
+                                                       <DataItemTemplate>
+                                                      <div>   <%# GetIssueTypeIconHtml1(Eval("Name_level").ToString()) %> </div>
+                                                     </DataItemTemplate>
+
+                                                     <CellStyle Wrap="True">
+                                                     </CellStyle>
                                                 </dx:GridViewDataTextColumn>
                                                 <dx:GridViewDataTextColumn FieldName="Name_module" ShowInCustomizationForm="True" VisibleIndex="7" Caption="Ph&#226;n hệ">
                                                 </dx:GridViewDataTextColumn>
@@ -640,9 +727,6 @@
                                             <GroupSummary>
                                                 <dx:ASPxSummaryItem DisplayFormat="Count  = {0}" FieldName="TenDT" SummaryType="Count" />
                                             </GroupSummary>
-                                            <FormatConditions>
-                                                <dx:GridViewFormatConditionColorScale FieldName="ID_level" Format="RedYellowGreen" ShowInColumn="Name_level" />
-                                            </FormatConditions>
                                             <Styles>
                                                 <Header Wrap="True">
                                                 </Header>
@@ -700,6 +784,11 @@
                                                                 </PropertiesDateEdit>
                                                             </dx:GridViewDataDateColumn>
                                                             <dx:GridViewDataTextColumn FieldName="Name_status" VisibleIndex="2">
+                                                                 <DataItemTemplate>
+                                                      <div>   <%# GetIssueTypeIconHtml2(Eval("Name_status").ToString()) %> </div>
+                                                     </DataItemTemplate>
+                                                    <CellStyle Wrap="True">
+                                                    </CellStyle>
                                                             </dx:GridViewDataTextColumn>
                                                             <dx:GridViewDataTextColumn FieldName="User_name" VisibleIndex="5">
                                                             </dx:GridViewDataTextColumn>
@@ -736,8 +825,19 @@
                                                 <dx:GridViewDataTextColumn FieldName="Name_project" ShowInCustomizationForm="True" VisibleIndex="3" Caption="Dự &#225;n">
                                                 </dx:GridViewDataTextColumn>
                                                 <dx:GridViewDataTextColumn FieldName="Name_status" ShowInCustomizationForm="True" VisibleIndex="5" Caption="T&#236;nh trạng">
+                                                     <DataItemTemplate>
+                                                      <div>   <%# GetIssueTypeIconHtml2(Eval("Name_status").ToString()) %> </div>
+                                                     </DataItemTemplate>
+                                                    <CellStyle Wrap="True">
+                                                    </CellStyle>
                                                 </dx:GridViewDataTextColumn>
                                                 <dx:GridViewDataTextColumn FieldName="Name_level" ShowInCustomizationForm="True" VisibleIndex="6" Caption="Cấp độ">
+                                                       <DataItemTemplate>
+                                                      <div>   <%# GetIssueTypeIconHtml1(Eval("Name_level").ToString()) %> </div>
+                                                     </DataItemTemplate>
+
+                                                     <CellStyle Wrap="True">
+                                                     </CellStyle>
                                                 </dx:GridViewDataTextColumn>
                                                 <dx:GridViewDataTextColumn FieldName="Name_module" ShowInCustomizationForm="True" VisibleIndex="7" Caption="Ph&#226;n hệ">
                                                 </dx:GridViewDataTextColumn>
@@ -802,9 +902,6 @@
                                             <GroupSummary>
                                                 <dx:ASPxSummaryItem DisplayFormat="Count  = {0}" FieldName="TenDT" SummaryType="Count" />
                                             </GroupSummary>
-                                            <FormatConditions>
-                                                <dx:GridViewFormatConditionColorScale FieldName="ID_level" Format="RedYellowGreen" ShowInColumn="Name_level" />
-                                            </FormatConditions>
                                             <Styles>
                                                 <Header Wrap="True">
                                                 </Header>

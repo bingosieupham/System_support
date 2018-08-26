@@ -1,21 +1,19 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Masterpage/Site1.Master" AutoEventWireup="true" CodeBehind="Hotro.aspx.cs" Inherits="System_support.EndUser.Hotro" %>
 <%@ Register assembly="DevExpress.Web.v17.1, Version=17.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" namespace="DevExpress.Web" tagprefix="dx" %>
+<%@ Register TagPrefix="dx" TagName="UploadedFilesContainer" Src="~/UserControls/UploadedFilesContainer.ascx" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <script>
            var stateKhachHang1 = {};
-         function onFileUploadStart(s, e) {
-              uploadInProgress = true;
-              uploadErrorOccurred = false;
-              UploadedFilesTokenBox.SetIsValid(true);
-
-          }
-
-          function onFileUploadComplete(s, e) {
-              var callbackData = e.callbackData.split("|"),
-                  uploadedFileName = callbackData[0];
-              $('#hdffile').val(uploadedFileName);
-              alert("Tải file thành công !");
-              uploadedFiles.push(uploadedFileName);
+            
+        function onFileUploadComplete(s, e) {
+               if(e.callbackData) {
+                var fileData = e.callbackData.split('|');
+                var fileName = fileData[0],
+                    fileUrl = fileData[1],
+                    fileSize = fileData[2];
+                   DXUploadedFilesContainer.AddFile(fileName, fileUrl, fileSize);
+                     
+            }
 
 
         }
@@ -66,7 +64,7 @@
         <Items>
             <dx:TabbedLayoutGroup ActiveTabIndex="1" Width="100%">
                 <Items>
-                    <dx:LayoutGroup Caption="Cập nhật thông tin lỗi" ColCount="2">
+                    <dx:LayoutGroup Caption="Cập nhật thông tin lỗi" ColCount="2" Width="100%">
                         <Items>
                             <dx:LayoutItem Caption="Thông tin lỗi" ColSpan="2">
                                 <LayoutItemNestedControlCollection>
@@ -84,13 +82,20 @@
                                     </dx:LayoutItemNestedControlContainer>
                                 </LayoutItemNestedControlCollection>
                             </dx:LayoutItem>
-                            <dx:LayoutItem Caption="File đính kèm">
+                            <dx:LayoutItem Caption="Tệp đính kèm" Width="60%">
                                 <LayoutItemNestedControlCollection>
                                     <dx:LayoutItemNestedControlContainer runat="server">
-                                        <dx:ASPxUploadControl ID="ASPxUploadControl1" runat="server" ClientInstanceName="uploaderFilesDinhKem" Height="20px" OnFileUploadComplete="ASPxUploadControl1_FileUploadComplete" ShowUploadButton="True" Width="100%">
-                                            <ClientSideEvents FileUploadComplete="onFileUploadComplete" />
-                                            <UploadButton Text="Tải File">
+                                        <dx:ASPxUploadControl ID="ASPxUploadControl" runat="server" ClientInstanceName="UploadControl" Height="20px" OnFileUploadComplete="ASPxUploadControl1_FileUploadComplete" ShowUploadButton="True" Width="100%" UploadMode="Auto" ShowProgressPanel="True">
+                                             <ClientSideEvents FilesUploadStart="function(s, e) { DXUploadedFilesContainer.Clear(); }"
+                                                 FileUploadComplete="onFileUploadComplete" />
+                                             <RemoveButton Text="Xóa">
+                                             </RemoveButton>
+                                            <UploadButton Text="Tải File" ImagePosition="Right">
+                                                <Image IconID="mail_attachment_32x32">
+                                                </Image>
                                             </UploadButton>
+                                            <AdvancedModeSettings EnableDragAndDrop="True" EnableFileList="True" EnableMultiSelect="True">
+                                            </AdvancedModeSettings>
                                         </dx:ASPxUploadControl>
                                     </dx:LayoutItemNestedControlContainer>
                                 </LayoutItemNestedControlCollection>
@@ -98,8 +103,9 @@
                             <dx:LayoutItem ShowCaption="False">
                                 <LayoutItemNestedControlCollection>
                                     <dx:LayoutItemNestedControlContainer runat="server">
-                                        <asp:Label ID="Label19" runat="server" Font-Italic="True" Font-Names="arial" Font-Size="10pt" Font-Strikeout="False" ForeColor="#FF3300" Text="Nếu có nhiều tệp đính kèm, vui lòng tập hợp vào file .rar và upload"></asp:Label>
-                                        <br />
+
+                                         <dx:UploadedFilesContainer ID="FileContainer" runat="server"  NameColumnWidth="440" SizeColumnWidth="70" HeaderText="File đính kèm" Width="400" height="100" />
+
                                     </dx:LayoutItemNestedControlContainer>
                                 </LayoutItemNestedControlCollection>
                             </dx:LayoutItem>
@@ -120,7 +126,7 @@
                             <dx:LayoutItem ColSpan="2" ShowCaption="False">
                                 <LayoutItemNestedControlCollection>
                                     <dx:LayoutItemNestedControlContainer runat="server">
-                                        <dx:ASPxGridView ID="ASPxGridView1" runat="server" AutoGenerateColumns="False" ClientInstanceName="GridView1Client" DataSourceID="SqlDataSource1" KeyFieldName="ID" Theme="Office2010Blue" Width="100%" Visible="False">
+                                        <dx:ASPxGridView ID="ASPxGridView1" runat="server" AutoGenerateColumns="False" ClientInstanceName="GridView1Client" DataSourceID="SqlDataSource1" KeyFieldName="ID" Theme="Office2010Blue" Width="100%">
                                             <SettingsPager Mode="ShowAllRecords">
                                             </SettingsPager>
                                             <Settings ShowFilterRow="True" ShowFooter="True" ShowGroupPanel="True" />
@@ -163,7 +169,7 @@
                                                     <DataItemTemplate>
                                                         <div>
                                                             <p class="text-primary text-bold">
-                                                                <a href='../file/<%# Eval("TenFile")%>'><%#(String.IsNullOrEmpty(Eval("TenFile").ToString()) ? " " :   "File")%></a>
+    
                                                             </p>
                                                         </div>
                                                     </DataItemTemplate>
@@ -191,7 +197,7 @@
                             </dx:LayoutItem>
                         </Items>
                     </dx:LayoutGroup>
-                    <dx:LayoutGroup Caption="Tình trạng xử lý">
+                    <dx:LayoutGroup Caption="Tình trạng xử lý" Width="100%">
                         <Items>
                             <dx:LayoutItem ShowCaption="False">
                                 <LayoutItemNestedControlCollection>
@@ -199,7 +205,44 @@
                                         <dx:ASPxGridView ID="ASPxGridView2" runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource3" KeyFieldName="ID" OnCustomCallback="ASPxGridView2_CustomCallback" Theme="Office2010Blue" Width="100%" EnableRowsCache="False">
                                             <SettingsDetail ShowDetailRow="True" />
                                             <Templates>
-                                                <DetailRow>
+                                                <DetailRow>   
+                                                    <dx:ASPxFormLayout ID="ASPxFormLayout2" runat="server" Width="100%">
+                                                        <Items>
+                                                            <dx:LayoutGroup ColCount="2" ShowCaption="False">
+                                                                <Items>
+                                                                    <dx:LayoutItem Caption="File k&#232;m" ColSpan="2">
+                                                                        <LayoutItemNestedControlCollection>
+                                                                            <dx:LayoutItemNestedControlContainer runat="server">
+                                                                                <div class="file" style="color: blue"><%# editBeforeDisplayTenFile(Eval("TenFile")) %></div>
+                                                                            </dx:LayoutItemNestedControlContainer>
+                                                                        </LayoutItemNestedControlCollection>
+                                                                    </dx:LayoutItem>
+                                                                    <dx:LayoutItem>
+                                                                        <LayoutItemNestedControlCollection>
+                                                                            <dx:LayoutItemNestedControlContainer runat="server"></dx:LayoutItemNestedControlContainer>
+                                                                        </LayoutItemNestedControlCollection>
+                                                                    </dx:LayoutItem>
+                                                                    <dx:LayoutItem>
+                                                                        <LayoutItemNestedControlCollection>
+                                                                            <dx:LayoutItemNestedControlContainer runat="server"></dx:LayoutItemNestedControlContainer>
+                                                                        </LayoutItemNestedControlCollection>
+                                                                    </dx:LayoutItem>
+                                                                    <dx:LayoutItem>
+                                                                        <LayoutItemNestedControlCollection>
+                                                                            <dx:LayoutItemNestedControlContainer runat="server"></dx:LayoutItemNestedControlContainer>
+                                                                        </LayoutItemNestedControlCollection>
+                                                                    </dx:LayoutItem>
+                                                                    <dx:LayoutItem>
+                                                                        <LayoutItemNestedControlCollection>
+                                                                            <dx:LayoutItemNestedControlContainer runat="server"></dx:LayoutItemNestedControlContainer>
+                                                                        </LayoutItemNestedControlCollection>
+                                                                    </dx:LayoutItem>
+                                                                </Items>
+                                                            </dx:LayoutGroup>
+
+                                                        </Items>
+                                                        <Border BorderStyle="None" />
+                                                    </dx:ASPxFormLayout>
                                                     <dx:ASPxGridView ID="ASPxGridView12" runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource11" KeyFieldName="ID_detail" OnBeforePerformDataSelect="ASPxGridView12_BeforePerformDataSelect" Width="100%" ClientInstanceName="GridView2Client" Theme="Office2010Blue" OnCustomCallback="ASPxGridView12_CustomCallback">
                                                         <SettingsPager Visible="False">
                                                         </SettingsPager>
@@ -252,50 +295,72 @@
                                             </Templates>
                                             <SettingsPager Mode="ShowAllRecords">
                                             </SettingsPager>
-                                            <Settings ShowFilterRow="True" ShowFooter="True" ShowGroupPanel="True" />
+                                            <Settings ShowFilterRow="True" ShowFooter="True" ShowGroupPanel="True" VerticalScrollableHeight="510" VerticalScrollBarMode="Auto" />
                                             <SettingsBehavior AutoExpandAllGroups="True" />
                                             <SettingsDataSecurity AllowDelete="False" AllowEdit="False" AllowInsert="False" />
                                             <SettingsSearchPanel Visible="True" />
                                             <SettingsText EmptyDataRow="Chưa có dữ liệu hiển thị !" />
                                             <Columns>
-                                                <dx:GridViewDataTextColumn FieldName="Name_project" ShowInCustomizationForm="True" VisibleIndex="3" Caption="Dự án">
+                                                <dx:GridViewDataTextColumn FieldName="Name_project" ShowInCustomizationForm="True" VisibleIndex="3" Caption="Dự án" Visible="False">
                                                 </dx:GridViewDataTextColumn>
                                                 <dx:GridViewDataTextColumn FieldName="Name_status" ShowInCustomizationForm="True" VisibleIndex="5" Caption="Tình trạng">
+                                                     <DataItemTemplate>
+                                                      <div>   <%# GetIssueTypeIconHtml2(Eval("Name_status").ToString()) %> </div>
+                                                     </DataItemTemplate>
+                                                    <CellStyle Wrap="True">
+                                                    </CellStyle>
                                                 </dx:GridViewDataTextColumn>
                                                 <dx:GridViewDataTextColumn FieldName="Name_level" ShowInCustomizationForm="True" VisibleIndex="6" Caption="Cấp độ">
+                                                     <DataItemTemplate>
+                                                      <div>   <%# GetIssueTypeIconHtml1(Eval("Name_level").ToString()) %> </div>
+                                                     </DataItemTemplate>
+
+                                                     <CellStyle Wrap="True">
+                                                     </CellStyle>
+
                                                 </dx:GridViewDataTextColumn>
-                                                <dx:GridViewDataTextColumn FieldName="Name_module" ShowInCustomizationForm="True" VisibleIndex="7" Caption="Phân hệ">
+                                                <dx:GridViewDataTextColumn FieldName="Name_module" ShowInCustomizationForm="True" VisibleIndex="7" Caption="Phân hệ" Visible="False">
                                                 </dx:GridViewDataTextColumn>
                                                 <dx:GridViewDataTextColumn FieldName="User_create" ShowInCustomizationForm="True" Visible="False" VisibleIndex="14">
                                                 </dx:GridViewDataTextColumn>
                                                 <dx:GridViewDataTextColumn FieldName="User_name" ShowInCustomizationForm="True" VisibleIndex="9" Caption="Người tạo">
+                                                    <CellStyle Wrap="True">
+                                                    </CellStyle>
                                                 </dx:GridViewDataTextColumn>
-                                                <dx:GridViewDataTextColumn FieldName="Title_issue" ShowInCustomizationForm="True" VisibleIndex="1" Caption="Tiêu đề">
+                                                <dx:GridViewDataTextColumn FieldName="Title_issue" ShowInCustomizationForm="True" VisibleIndex="1" Caption="Tiêu đề" Width="20%">
+                                                    <CellStyle Wrap="True">
+                                                    </CellStyle>
                                                 </dx:GridViewDataTextColumn>
                                                 <dx:GridViewDataTextColumn FieldName="ID" ReadOnly="True" ShowInCustomizationForm="True" VisibleIndex="0">
                                                     <EditFormSettings Visible="False" />
                                                 </dx:GridViewDataTextColumn>
-                                                <dx:GridViewDataTextColumn FieldName="Content_issue" ShowInCustomizationForm="True" VisibleIndex="2" Caption="Nội dung" Visible="False">
+                                                <dx:GridViewDataTextColumn FieldName="Content_issue" ShowInCustomizationForm="True" VisibleIndex="2" Caption="Nội dung" Width="35%">
+                                                    <CellStyle Wrap="True">
+                                                    </CellStyle>
                                                 </dx:GridViewDataTextColumn>
-                                                <dx:GridViewDataTextColumn FieldName="Name_Class" ShowInCustomizationForm="True" VisibleIndex="8" Caption="Phân loại">
+                                                <dx:GridViewDataTextColumn FieldName="Name_Class" ShowInCustomizationForm="True" VisibleIndex="8" Caption="Phân loại" Visible="False">
                                                 </dx:GridViewDataTextColumn>
                                                 <dx:GridViewDataDateColumn FieldName="Created_date" ShowInCustomizationForm="True" VisibleIndex="10" Caption="Ngày tạo">
                                                     <PropertiesDateEdit DisplayFormatString="dd/MM/yyyy HH:mm:ss" EditFormat="DateTime">
                                                     </PropertiesDateEdit>
+                                                    <CellStyle Wrap="True">
+                                                    </CellStyle>
                                                 </dx:GridViewDataDateColumn>
-                                                <dx:GridViewDataDateColumn FieldName="Resolution_date" ShowInCustomizationForm="True" VisibleIndex="11" Caption="Thời gian kết thúc">
+                                                <dx:GridViewDataDateColumn FieldName="Resolution_date" ShowInCustomizationForm="True" VisibleIndex="11" Caption="Thời gian kết thúc" Visible="False">
                                                     <PropertiesDateEdit DisplayFormatString="dd/MM/yyyy HH:mm:ss" EditFormat="DateTime">
                                                     </PropertiesDateEdit>
                                                 </dx:GridViewDataDateColumn>
                                                 <dx:GridViewDataTextColumn FieldName="Executor" ShowInCustomizationForm="True" VisibleIndex="12" Caption="Người xử lý">
+                                                    <CellStyle Wrap="True">
+                                                    </CellStyle>
                                                 </dx:GridViewDataTextColumn>
-                                                <dx:GridViewDataTextColumn FieldName="TenFile" ShowInCustomizationForm="True" Visible="False" VisibleIndex="13">
+                                                <dx:GridViewDataTextColumn FieldName="TenFile" ShowInCustomizationForm="True" VisibleIndex="13" Visible="False">
                                                 </dx:GridViewDataTextColumn>
                                                 <dx:GridViewDataTextColumn Caption="Đơn vị" FieldName="Ten_dv" Visible="false" ShowInCustomizationForm="True" VisibleIndex="15">
                                                 </dx:GridViewDataTextColumn>
                                                 <dx:GridViewDataTextColumn Caption="Điện thoại" FieldName="Phone" ShowInCustomizationForm="True" VisibleIndex="16" Visible="False">
                                                 </dx:GridViewDataTextColumn>
-                                                <dx:GridViewDataTextColumn Caption="File" FieldName="Filekem1" ShowInCustomizationForm="True" VisibleIndex="4" Width="20px">
+                                                <dx:GridViewDataTextColumn Caption="File" FieldName="Filekem1" ShowInCustomizationForm="True" VisibleIndex="4" Width="20px" Visible="False">
                                                     <Settings AutoFilterCondition="Contains" FilterMode="DisplayText" />
                                                     <BatchEditModifiedCellStyle Wrap="True">
                                                     </BatchEditModifiedCellStyle>
@@ -311,22 +376,28 @@
                                                         <BackgroundImage HorizontalPosition="center" />
                                                     </CellStyle>
                                                 </dx:GridViewDataTextColumn>
-                                                <dx:GridViewDataTextColumn FieldName="ID_level" ShowInCustomizationForm="True" Visible="False" VisibleIndex="18">
+                                                <dx:GridViewDataTextColumn FieldName="ID_level" ShowInCustomizationForm="True" Visible="False" VisibleIndex="17">
                                                 </dx:GridViewDataTextColumn>
+                                 
                                             </Columns>
                                        
                                             <GroupSummary>
                                                 <dx:ASPxSummaryItem DisplayFormat="Count  = {0}" FieldName="TenDT" SummaryType="Count" />
                                             </GroupSummary>
-                                            <FormatConditions>
-                                                <dx:GridViewFormatConditionColorScale FieldName="ID_level" Format="RedWhiteBlue" ShowInColumn="Name_level" />
-                                            </FormatConditions>
                                             <Styles>
                                                 <Header Wrap="True">
                                                 </Header>
+                                                <DetailRow HorizontalAlign="Left">
+                                                </DetailRow>
                                                 <Cell Wrap="True">
                                                 </Cell>
                                             </Styles>
+                                            <Images>
+                                                <DetailCollapsedButton IconID="navigation_forward_32x32office2013">
+                                                </DetailCollapsedButton>
+                                                <DetailExpandedButton IconID="navigation_next_32x32office2013">
+                                                </DetailExpandedButton>
+                                            </Images>
                                         </dx:ASPxGridView>
                                         <asp:SqlDataSource ID="SqlDataSource3" runat="server" ConnectionString="<%$ ConnectionStrings:Hotro_DVConnectionString %>" SelectCommand="SELECT DM_project.Name_project, DM_Issues_Status.Name_status, DM_Level.Name_level, DM_module.Name_module, User_login.User_name, ND_Issues.Title_issue, ND_Issues.ID, ND_Issues.Content_issue, DM_module_Class.Name_Class, ND_Issues.Created_date, ND_Issues.Resolution_date, ND_Issues.TenFile, DM_donvi.Ten_dv, User_login.Phone, User_login_1.User_name AS Executor, ND_Issues.ID_level FROM ND_Issues INNER JOIN DM_donvi ON ND_Issues.ID_dv = DM_donvi.ID_dv LEFT OUTER JOIN User_login AS User_login_1 ON ND_Issues.Executors = User_login_1.ID_nv LEFT OUTER JOIN DM_project ON ND_Issues.ID_Project = DM_project.ID_Project LEFT OUTER JOIN DM_Issues_Status ON ND_Issues.ID_st = DM_Issues_Status.ID_st LEFT OUTER JOIN DM_Level ON ND_Issues.ID_level = DM_Level.ID_level LEFT OUTER JOIN DM_module ON ND_Issues.ID_module = DM_module.ID_module LEFT OUTER JOIN User_login ON ND_Issues.User_create = User_login.ID_nv LEFT OUTER JOIN DM_module_Class ON ND_Issues.ID_class = DM_module_Class.ID_Class WHERE (ND_Issues.ID_st IN (1,2,3,5,6,9) AND (ND_Issues.ID_dv = @id_dv))">
                                             <SelectParameters>
@@ -372,6 +443,12 @@
                                                                 </PropertiesDateEdit>
                                                             </dx:GridViewDataDateColumn>
                                                             <dx:GridViewDataTextColumn FieldName="Name_status" VisibleIndex="2">
+                                                                   <DataItemTemplate>
+                                                      <div>   <%# GetIssueTypeIconHtml2(Eval("Name_status").ToString()) %> </div>
+                                                     </DataItemTemplate>
+                                                    <CellStyle Wrap="True">
+                                                    </CellStyle>
+
                                                             </dx:GridViewDataTextColumn>
                                                             <dx:GridViewDataTextColumn FieldName="User_name" VisibleIndex="5">
                                                             </dx:GridViewDataTextColumn>
@@ -408,8 +485,19 @@
                                                 <dx:GridViewDataTextColumn Caption="Dự án" FieldName="Name_project" ShowInCustomizationForm="True" VisibleIndex="3">
                                                 </dx:GridViewDataTextColumn>
                                                 <dx:GridViewDataTextColumn Caption="Tình trạng" FieldName="Name_status" ShowInCustomizationForm="True" VisibleIndex="5">
+                                                     <DataItemTemplate>
+                                                      <div>   <%# GetIssueTypeIconHtml2(Eval("Name_status").ToString()) %> </div>
+                                                     </DataItemTemplate>
+                                                    <CellStyle Wrap="True">
+                                                    </CellStyle>
                                                 </dx:GridViewDataTextColumn>
                                                 <dx:GridViewDataTextColumn Caption="Cấp độ" FieldName="Name_level" ShowInCustomizationForm="True" VisibleIndex="6">
+                                                        <DataItemTemplate>
+                                                      <div>   <%# GetIssueTypeIconHtml1(Eval("Name_level").ToString()) %> </div>
+                                                     </DataItemTemplate>
+
+                                                     <CellStyle Wrap="True">
+                                                     </CellStyle>
                                                 </dx:GridViewDataTextColumn>
                                                 <dx:GridViewDataTextColumn Caption="Phân hệ" FieldName="Name_module" ShowInCustomizationForm="True" VisibleIndex="7">
                                                 </dx:GridViewDataTextColumn>
@@ -484,7 +572,7 @@
                             </dx:LayoutItem>
                         </Items>
                     </dx:LayoutGroup>
-                    <dx:LayoutGroup Caption="Đã xử lý">
+                    <dx:LayoutGroup Caption="Đã xử lý" Width="100%">
                         <Items>
                             <dx:LayoutItem ShowCaption="False">
                                 <LayoutItemNestedControlCollection>
@@ -518,6 +606,11 @@
                                                                 </PropertiesDateEdit>
                                                             </dx:GridViewDataDateColumn>
                                                             <dx:GridViewDataTextColumn FieldName="Name_status" VisibleIndex="2">
+                                                                <DataItemTemplate>
+                                                      <div>   <%# GetIssueTypeIconHtml2(Eval("Name_status").ToString()) %> </div>
+                                                     </DataItemTemplate>
+                                                    <CellStyle Wrap="True">
+                                                    </CellStyle>
                                                             </dx:GridViewDataTextColumn>
                                                             <dx:GridViewDataTextColumn FieldName="User_name" VisibleIndex="5">
                                                             </dx:GridViewDataTextColumn>
@@ -546,8 +639,19 @@
                                                 <dx:GridViewDataTextColumn FieldName="Name_project" Visible="false" ShowInCustomizationForm="True" VisibleIndex="4">
                                                 </dx:GridViewDataTextColumn>
                                                 <dx:GridViewDataTextColumn FieldName="Name_status" ShowInCustomizationForm="True" VisibleIndex="5">
+                                                    <DataItemTemplate>
+                                                      <div>   <%# GetIssueTypeIconHtml2(Eval("Name_status").ToString()) %> </div>
+                                                     </DataItemTemplate>
+                                                    <CellStyle Wrap="True">
+                                                    </CellStyle>
                                                 </dx:GridViewDataTextColumn>
                                                 <dx:GridViewDataTextColumn FieldName="Name_level" ShowInCustomizationForm="True" VisibleIndex="6">
+                                                        <DataItemTemplate>
+                                                      <div>   <%# GetIssueTypeIconHtml1(Eval("Name_level").ToString()) %> </div>
+                                                     </DataItemTemplate>
+
+                                                     <CellStyle Wrap="True">
+                                                     </CellStyle>
                                                 </dx:GridViewDataTextColumn>
                                                 <dx:GridViewDataTextColumn FieldName="Name_module" ShowInCustomizationForm="True" VisibleIndex="7">
                                                 </dx:GridViewDataTextColumn>
@@ -621,7 +725,7 @@
             </dx:TabbedLayoutGroup>
         </Items>
 </dx:ASPxFormLayout>
-     <asp:HiddenField ClientIDMode="static" ID="hdffile" runat="server" />
+     <asp:HiddenField  ID="hdffile" runat="server" />
       <asp:HiddenField ClientIDMode="static" ID="hdfmaquanly1" runat="server" />
 
      <div class="modal modal-primary fade" id="CBCNV_2">
@@ -687,7 +791,7 @@
                         <button id="btnSave" type="button" onclick="KH_OnClickSave1()" class="btn btn-primary">Cập nhật</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">&#272;óng</button>
                     </div>
-
+                    
                 </div>
         </div>
         </div> 

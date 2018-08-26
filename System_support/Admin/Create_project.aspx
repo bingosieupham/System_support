@@ -4,21 +4,69 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <dx:ASPxFormLayout ID="ASPxFormLayout1" runat="server" Theme="Office2010Blue" EnableTheming="True" Width="100%">
         <Items>
-            <dx:LayoutGroup Caption="Cập nhật th&#244;ng tin t&#224;i khoản" ColCount="2" ShowCaption="False">
+            <dx:LayoutGroup Caption="Cập nhật th&#244;ng tin t&#224;i khoản" ColCount="3" ShowCaption="False">
                 <Items>
-                    <dx:LayoutItem Caption="Mã dự án" ColSpan="2">
+                    <dx:LayoutItem Caption="Tên dự án" ColSpan="2">
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer runat="server">
-                                <dx:ASPxTextBox ID="ASPxTextBox1" runat="server" Width="270px">
+                                                                <dx:ASPxTextBox runat="server" Width="100%" ID="ASPxTextBox2"></dx:ASPxTextBox>                     
+                            </dx:LayoutItemNestedControlContainer>
+                        </LayoutItemNestedControlCollection>
+                    </dx:LayoutItem>
+                    <dx:LayoutItem Caption="Mã dự án">
+                        <LayoutItemNestedControlCollection>
+                            <dx:LayoutItemNestedControlContainer runat="server">
+                                <dx:ASPxTextBox ID="ASPxTextBox1" runat="server" Width="100%">
                                     
                                 </dx:ASPxTextBox>
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>
                     </dx:LayoutItem>
-                    <dx:LayoutItem Caption="Tên dự án" ColSpan="2">
+                    <dx:LayoutItem Caption="Nội dung dự án" ColSpan="3">
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer runat="server">
-                                                                <dx:ASPxTextBox runat="server" Width="270px" ID="ASPxTextBox2"></dx:ASPxTextBox>                     
+                                <dx:ASPxMemo ID="ASPxMemo1" runat="server" Height="71px" Width="100%">
+                                </dx:ASPxMemo>
+                            </dx:LayoutItemNestedControlContainer>
+                        </LayoutItemNestedControlCollection>
+                    </dx:LayoutItem>
+                    <dx:LayoutItem Caption="Sản phẩm" ColSpan="2">
+                        <LayoutItemNestedControlCollection>
+                            <dx:LayoutItemNestedControlContainer runat="server">
+                                <dx:ASPxTextBox ID="ASPxTextBox3" runat="server" NullText="LS, Nav, Ax, Cotana, …" Width="100%">
+                                </dx:ASPxTextBox>
+                            </dx:LayoutItemNestedControlContainer>
+                        </LayoutItemNestedControlCollection>
+                    </dx:LayoutItem>
+                    <dx:LayoutItem Caption="Thông tin CSDL">
+                        <LayoutItemNestedControlCollection>
+                            <dx:LayoutItemNestedControlContainer runat="server">
+                                <dx:ASPxTextBox ID="ASPxTextBox4" runat="server" NullText="Version, CU" Width="100%">
+                                </dx:ASPxTextBox>
+                            </dx:LayoutItemNestedControlContainer>
+                        </LayoutItemNestedControlCollection>
+                    </dx:LayoutItem>
+                    <dx:LayoutItem Caption="Thông tin kết nối">
+                        <LayoutItemNestedControlCollection>
+                            <dx:LayoutItemNestedControlContainer runat="server">
+                                <dx:ASPxTextBox ID="ASPxTextBox5" runat="server" Width="100%">
+                                </dx:ASPxTextBox>
+                            </dx:LayoutItemNestedControlContainer>
+                        </LayoutItemNestedControlCollection>
+                    </dx:LayoutItem>
+                    <dx:LayoutItem Caption="Tên, mật khẩu">
+                        <LayoutItemNestedControlCollection>
+                            <dx:LayoutItemNestedControlContainer runat="server">
+                                <dx:ASPxTextBox ID="ASPxTextBox6" runat="server" Width="100%">
+                                </dx:ASPxTextBox>
+                            </dx:LayoutItemNestedControlContainer>
+                        </LayoutItemNestedControlCollection>
+                    </dx:LayoutItem>
+                    <dx:LayoutItem Caption="Ngày hoạt động">
+                        <LayoutItemNestedControlCollection>
+                            <dx:LayoutItemNestedControlContainer runat="server">
+                                <dx:ASPxDateEdit ID="ASPxDateEdit1" runat="server" Width="100%">
+                                </dx:ASPxDateEdit>
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>
                     </dx:LayoutItem>
@@ -30,14 +78,14 @@
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>
                     </dx:LayoutItem>
-                    <dx:LayoutItem ShowCaption="False">
+                    <dx:LayoutItem ShowCaption="False" ColSpan="2">
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer runat="server">
                                 <asp:Label ID="Label2" runat="server" ForeColor="Red"></asp:Label>
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>
                     </dx:LayoutItem>
-                    <dx:LayoutItem ColSpan="2" ShowCaption="False">
+                    <dx:LayoutItem ColSpan="3" ShowCaption="False">
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer runat="server">
                                 <dx:ASPxGridView ID="ASPxGridView1" runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource1" Width="100%">

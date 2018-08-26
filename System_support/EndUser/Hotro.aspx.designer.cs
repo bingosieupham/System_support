@@ -40,22 +40,22 @@ namespace System_support.EndUser {
         protected global::DevExpress.Web.ASPxMemo ASPxMemo1;
         
         /// <summary>
-        /// ASPxUploadControl1 control.
+        /// ASPxUploadControl control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxUploadControl ASPxUploadControl1;
+        protected global::DevExpress.Web.ASPxUploadControl ASPxUploadControl;
         
         /// <summary>
-        /// Label19 control.
+        /// FileContainer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label19;
+        protected global::System_support.UserControls.UploadedFilesContainer FileContainer;
         
         /// <summary>
         /// Button1 control.

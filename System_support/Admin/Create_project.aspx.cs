@@ -23,11 +23,11 @@ namespace System_support.Admin
             string user1 = Session.Contents["id_nv"].ToString();
             try
             {
-                ad.insertproject(ASPxTextBox1.Text, ASPxTextBox2.Text, user1);
+                ad.insertproject(ASPxTextBox1.Text, ASPxTextBox1.Text, user1);
                 ASPxGridView1.DataBind();
                 Label2.Text = "Cập nhật thành công ";
                 ASPxTextBox1.Text = "";
-                ASPxTextBox2.Text = "";
+                ASPxTextBox1.Text = "";
             }
             catch (Exception ex)
             {

@@ -22,6 +22,15 @@ namespace System_support.Admin {
         protected global::DevExpress.Web.ASPxFormLayout ASPxFormLayout1;
         
         /// <summary>
+        /// ASPxTextBox2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxTextBox ASPxTextBox2;
+        
+        /// <summary>
         /// ASPxTextBox1 control.
         /// </summary>
         /// <remarks>
@@ -31,13 +40,58 @@ namespace System_support.Admin {
         protected global::DevExpress.Web.ASPxTextBox ASPxTextBox1;
         
         /// <summary>
-        /// ASPxTextBox2 control.
+        /// ASPxMemo1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxTextBox ASPxTextBox2;
+        protected global::DevExpress.Web.ASPxMemo ASPxMemo1;
+        
+        /// <summary>
+        /// ASPxTextBox3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxTextBox ASPxTextBox3;
+        
+        /// <summary>
+        /// ASPxTextBox4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxTextBox ASPxTextBox4;
+        
+        /// <summary>
+        /// ASPxTextBox5 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxTextBox ASPxTextBox5;
+        
+        /// <summary>
+        /// ASPxTextBox6 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxTextBox ASPxTextBox6;
+        
+        /// <summary>
+        /// ASPxDateEdit1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxDateEdit ASPxDateEdit1;
         
         /// <summary>
         /// ASPxButton1 control.

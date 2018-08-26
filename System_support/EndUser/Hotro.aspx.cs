@@ -26,8 +26,8 @@ namespace System_support.EndUser
                 hdffile.Value = "";
                 ASPxGridView2.DataBind();
                 ASPxGridView4.DataBind();
-               // ASPxGridView2.DetailRows.ExpandAllRows();
-               // ASPxGridView4.DetailRows.ExpandAllRows();
+                //ASPxGridView2.DetailRows.ExpandAllRows();
+                //ASPxGridView4.DetailRows.ExpandAllRows();
             }
         }
 
@@ -40,16 +40,109 @@ namespace System_support.EndUser
             string resultFileUrl = UploadDirectory + resultFileName;
             string resultFilePath = MapPath(resultFileUrl);
             e.UploadedFile.SaveAs(resultFilePath);
-            string abc = e.UploadedFile.FileName;
-            if (e.IsValid)
-                e.CallbackData = resultFileName;
+
+            string name = e.UploadedFile.FileName;
+            string url = ResolveClientUrl(resultFileUrl);
+
+            long sizeInKilobytes = e.UploadedFile.ContentLength / 1024;
+            string sizeText = sizeInKilobytes.ToString() + " KB";
+            e.CallbackData = name + "|" + url + "|" + sizeText;
+            Session["tenfile"] += (";" + resultFileName);
+            //hdffile.Value += (";" + url);
         }
 
-        protected void Button1_Click(object sender, EventArgs e)
+        protected string editBeforeDisplayTenFile(object tenfile)
         {
+            string re = "";
+            string tFile = (string)tenfile;
+            if (tFile.LastIndexOf(";")>-1) tFile = tFile.Substring(0,tFile.Length -1);
+            if (tFile != null && !tFile.Equals("null") && !tFile.Equals("NULL")  && !tFile.Trim().Equals(""))
+            {
+                string[] arrLink = tFile.Split(';');
+                for (var i = 0; i < arrLink.Length; i++)
+                {
+                    re+=("<a href='../file/" + arrLink[i] + "'>" + arrLink[i] + "</a> &nbsp&nbsp");
+                }
+            }
+            return re;
+        }
+
+        public string GetIssueTypeIconHtml1(object dataItem)
+        {
+            string re = "";
+            string tdate = (string)dataItem;
+            string priorytyClass = "info";
+            string title = "Thấp";
+            if (object.Equals(tdate, "Medium"))
+            {
+                priorytyClass = "primary";
+                title = " Trung bình ";
+            }
+            if (object.Equals(tdate, "High"))
+            {
+                priorytyClass = "warning";
+                title = " Cao ";
+            }
+            if (object.Equals(tdate, "Critical"))
+            {
+                priorytyClass = "danger";
+                title = " Cực cao ";
+            }
+            re= string.Format("<span class='label label-{0}' title='{1}'>{1}</span>", priorytyClass, title);
+            return re;
+
+        }
+        public string GetIssueTypeIconHtml2(object dataItem)
+        {
+            string re1 = "";
+            string tdate = (string)dataItem;
+            string ClassSTT = "play ";
+            string title = "Open";
+            if (object.Equals(tdate, "In Progress"))
+            {
+                ClassSTT = "gavel";
+                title = " In Progress ";
+            }
+            if (object.Equals(tdate, "Waiting For Customer Information/Feedback"))
+            {
+                ClassSTT = "pause ";
+                title = " Waiting For Customer Information/Feedback";
+            }
+            if (object.Equals(tdate, "Cancel/Rejected/Double Entry"))
+            {
+                ClassSTT = "ban ";
+                title = " Cancel/Rejected/Double Entry ";
+            }
+            if (object.Equals(tdate, "Assigned To Consultant"))
+            {
+                ClassSTT = "key ";
+                title = " Assigned To Consultant ";
+            }
+            if (object.Equals(tdate, "Assigned To Technical"))
+            {
+                ClassSTT = "magic ";
+                title = " Assigned To Technical ";
+            }
+            if (object.Equals(tdate, "Fix/Deployed"))
+            {
+                ClassSTT = "bug";
+                title = " Fix/Deployed ";
+            }
+            if (object.Equals(tdate, "Closed"))
+            {
+                ClassSTT = "lock ";
+                title = " Closed ";
+            }
+            //  re = string.Format("<span class='label label-{0}' title='{1}'>{1}</span>", ClassSTT, title);
+            re1 = string.Format("<i class='fa fa-{0}' title='{1}' style='color: red; font-size: 30px;'></i>", ClassSTT, title);
+            return re1;
+
+        }
+        protected void Button1_Click(object sender, EventArgs e)
+        {  
             int id_dv = Int32.Parse(Session.Contents["donvi"].ToString());
             int id_nv = Int32.Parse(Session.Contents["id_nv"].ToString());
-            string tenfile = hdffile.Value.ToString();
+            string tenfile = Session["tenfile"].ToString();
             try
             {
                 if ((ASPxTextBox1.Text != null) || (ASPxMemo1.Text != null))
@@ -60,6 +153,7 @@ namespace System_support.EndUser
                     ASPxTextBox1.Text = "";
                     ASPxMemo1.Text = "";
                     hdffile.Value = "";
+                    Session["tenfile"] = null;
                 }
                 else
                 {

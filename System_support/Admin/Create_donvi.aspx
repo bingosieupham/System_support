@@ -13,19 +13,27 @@
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>
                     </dx:LayoutItem>
+                    <dx:LayoutItem Caption="Mã đơn vị hệ thống">
+                        <LayoutItemNestedControlCollection>
+                            <dx:LayoutItemNestedControlContainer runat="server">
+                                                                                                <dx:ASPxTextBox runat="server" Width="270px" ID="ASPxTextBox3"></dx:ASPxTextBox>
+                            </dx:LayoutItemNestedControlContainer>
+                        </LayoutItemNestedControlCollection>
+                    </dx:LayoutItem>
+                    <dx:LayoutItem Caption="Địa chỉ " ColSpan="2">
+                        <LayoutItemNestedControlCollection>
+                            <dx:LayoutItemNestedControlContainer runat="server">
+                                <dx:ASPxMemo ID="ASPxMemo1" runat="server" Height="71px" Width="860px">
+                                </dx:ASPxMemo>
+                            </dx:LayoutItemNestedControlContainer>
+                        </LayoutItemNestedControlCollection>
+                    </dx:LayoutItem>
                     <dx:LayoutItem Caption="Số điện thoại">
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer runat="server">
                                 <dx:ASPxTextBox ID="ASPxTextBox2" runat="server" Width="270px">
                                     
                                 </dx:ASPxTextBox>
-                            </dx:LayoutItemNestedControlContainer>
-                        </LayoutItemNestedControlCollection>
-                    </dx:LayoutItem>
-                    <dx:LayoutItem Caption="Mã đơn vị hệ thống">
-                        <LayoutItemNestedControlCollection>
-                            <dx:LayoutItemNestedControlContainer runat="server">
-                                                                                                <dx:ASPxTextBox runat="server" Width="270px" ID="ASPxTextBox3"></dx:ASPxTextBox>
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>
                     </dx:LayoutItem>
@@ -70,16 +78,18 @@
                                         </dx:GridViewDataTextColumn>
                                         <dx:GridViewDataTextColumn FieldName="Ten_dv" ShowInCustomizationForm="True" VisibleIndex="2" Caption="Tên đơn vị">
                                         </dx:GridViewDataTextColumn>
-                                        <dx:GridViewDataTextColumn FieldName="Dienthoai_dv" ShowInCustomizationForm="True" VisibleIndex="3" Caption="Điện thoại">
+                                        <dx:GridViewDataTextColumn FieldName="Dienthoai_dv" ShowInCustomizationForm="True" VisibleIndex="4" Caption="Điện thoại">
                                         </dx:GridViewDataTextColumn>
-                                        <dx:GridViewDataTextColumn FieldName="Email" ShowInCustomizationForm="True" VisibleIndex="4">
+                                        <dx:GridViewDataTextColumn FieldName="Email" ShowInCustomizationForm="True" VisibleIndex="5">
                                         </dx:GridViewDataTextColumn>
-                                        <dx:GridViewDataTextColumn FieldName="Status" ShowInCustomizationForm="True" Visible="False" VisibleIndex="5">
+                                        <dx:GridViewDataTextColumn FieldName="Status" ShowInCustomizationForm="True" Visible="False" VisibleIndex="6">
                                         </dx:GridViewDataTextColumn>
-                                        <dx:GridViewDataDateColumn Caption="Ngày tạo" FieldName="Ngay_tao" ShowInCustomizationForm="True" VisibleIndex="6">
+                                        <dx:GridViewDataDateColumn Caption="Ngày tạo" FieldName="Ngay_tao" ShowInCustomizationForm="True" VisibleIndex="7">
                                         </dx:GridViewDataDateColumn>
-                                        <dx:GridViewDataDateColumn FieldName="Ngay_capnhat" ShowInCustomizationForm="True" Visible="False" VisibleIndex="7">
+                                        <dx:GridViewDataDateColumn FieldName="Ngay_capnhat" ShowInCustomizationForm="True" Visible="False" VisibleIndex="8">
                                         </dx:GridViewDataDateColumn>
+                                        <dx:GridViewDataTextColumn Caption="Địa chỉ" FieldName="Diachi" ShowInCustomizationForm="True" VisibleIndex="3">
+                                        </dx:GridViewDataTextColumn>
                                     </Columns>
                                 </dx:ASPxGridView>
                                 <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:Hotro_DVConnectionString %>" SelectCommand="SELECT * FROM [DM_donvi] WHERE ([Status] = @Status)">

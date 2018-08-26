@@ -2754,9 +2754,11 @@
     <Content Include="Doimk.aspx" />
     <Content Include="EndUser\Hotro.aspx" />
     <Content Include="Login.aspx" />
+    <Content Include="Scripts\Demo.js" />
     <Content Include="Suporter\Baocao.aspx" />
     <Content Include="Suporter\FixError.aspx" />
     <Content Include="Suporter\Hotro1.aspx" />
+    <Content Include="UserControls\UploadedFilesContainer.ascx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -2857,6 +2859,13 @@
     </Compile>
     <Compile Include="Suporter\Hotro1.aspx.designer.cs">
       <DependentUpon>Hotro1.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\UploadedFilesContainer.ascx.cs">
+      <DependentUpon>UploadedFilesContainer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\UploadedFilesContainer.ascx.designer.cs">
+      <DependentUpon>UploadedFilesContainer.ascx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
